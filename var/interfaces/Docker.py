@@ -1,8 +1,15 @@
 import docker
+import os
 
+
+'''
+add the certs cert.pem and key.pem information or a tls config file with the paths, run docker-machine env on the server to view the url and paths
+'''
+certs = {"cert":str(os.environ['docker_client_cert']), "key":str(os.environ['docker_client_key'])}
 class Docker:
-    def __init__(self):
-        self.client = docker.from_env()
+    def __init__(self, url='192.168.99.100:2376', tls_config=docker.tls.TLSConfig(client_cert=(certs['cert'], certs['key']))):
+        self.server = docker.from_env()
+        self.client = docker.DockerClient(base_url=url, tls=tls_config)
         pass
     
     '''
