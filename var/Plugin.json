@@ -1,0 +1,20 @@
+{
+    "Docker":{
+        "image":"rula018/practicum",
+        "flags":[
+            "i",
+            "t"
+        ],
+        "dependencies":{
+            "some_dep":"some dep",
+            "some_dep2":"some dep"
+            }
+    },
+    "Tool":{
+        "flags":[
+            "Q"
+        ],
+        "input":"../input",
+        "output":"../output"
+    }
+}
