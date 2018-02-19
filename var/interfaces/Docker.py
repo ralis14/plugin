@@ -1,8 +1,16 @@
 import docker
 import os
 from pathlib import Path
-root_dir = str(Path.cwd())
-root_dir +='../..'
+
+'''
+Add utils function that gets the pwd and parses or uses regex to remove c and anything before c and append /c/+rest_of_path
+
+if not using a windows host then just add the root host_path
+'''
+#root_dir = str(Path.cwd())
+#root_dir +='../..'
+
+root_dir = os.environ['plugin_path']
 
 '''
 add the certs cert.pem and key.pem information or a tls config file with the paths, run docker-machine env on the server to view the url and paths
@@ -28,6 +36,11 @@ class DockerApi:
     def image(self, image):
         self.client_params['image']= image
         return self
+    '''
+    Volumes: if on windows 10 , create a shared folder in virtualbox (docker toolbox) and 
+    link that folder in docker. Folder must be somewhere after the /c/Users/[user], 
+    ea. plugin needs his own mounted folder. 
+    '''
     def volumes(self, host_path=root_dir, docker_path='/plugin', mode=''):
         volumes={host_path:{'bind':docker_path, 'mode':mode}}
         self.client_params['volumes']=volumes
