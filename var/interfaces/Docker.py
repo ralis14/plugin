@@ -2,6 +2,7 @@ import docker
 import os
 from pathlib import Path
 root_dir = str(Path.cwd())
+root_dir +='../..'
 
 '''
 add the certs cert.pem and key.pem information or a tls config file with the paths, run docker-machine env on the server to view the url and paths
@@ -27,7 +28,7 @@ class DockerApi:
     def image(self, image):
         self.client_params['image']= image
         return self
-    def volumes(self, host_path=root_dir, docker_path='/app', mode='rw'):
+    def volumes(self, host_path=root_dir, docker_path='/plugin', mode=''):
         volumes={host_path:{'bind':docker_path, 'mode':mode}}
         self.client_params['volumes']=volumes
         return self
